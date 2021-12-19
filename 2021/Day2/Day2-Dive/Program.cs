@@ -1,2 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Day2_Dive;
+
+string[] lines = await File.ReadAllLinesAsync(@"..\..\..\Input.txt", System.Text.Encoding.UTF8);
+
+PositionTracker tracker = new();
+InputProcessor processor = new(tracker);
+
+processor.ProcessLines(lines);
+
+Console.WriteLine($"Steps: {lines.Count()}");
+Console.WriteLine($"Horizontal position: {tracker.HorizontalPostion}");
+Console.WriteLine($"Depth: {tracker.Depth}");
