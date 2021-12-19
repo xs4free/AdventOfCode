@@ -1,6 +1,6 @@
 ﻿namespace Day2_Dive
 {
-    public class PositionTracker
+    public class PositionTrackerPart1 : IPositionTracker
     {
         public int HorizontalPostion { get; private set; }
         public int Depth { get; private set; }

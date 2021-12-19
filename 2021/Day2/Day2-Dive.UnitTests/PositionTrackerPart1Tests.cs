@@ -4,14 +4,14 @@ using Xunit;
 
 namespace Day2_Dive.UnitTests
 {
-    public class PositionTrackerTests
+    public class PositionTrackerPart1Tests
     {
         private IFixture fixture = new Fixture();
 
         [Fact]
         public void Forward_moves_HorizontalPosition()
         {
-            var sut = new PositionTracker();
+            var sut = new PositionTrackerPart1();
             int steps = fixture.Create<int>();
             
             sut.Forward(steps);
@@ -23,7 +23,7 @@ namespace Day2_Dive.UnitTests
         [Fact]
         public void Up_changes_Depth()
         {
-            var sut = new PositionTracker();
+            var sut = new PositionTrackerPart1();
             int steps = fixture.Create<int>();
 
             sut.Up(steps);
@@ -35,7 +35,7 @@ namespace Day2_Dive.UnitTests
         [Fact]
         public void Down_changes_Depth()
         {
-            var sut = new PositionTracker();
+            var sut = new PositionTrackerPart1();
             int steps = fixture.Create<int>();
 
             sut.Down(steps);

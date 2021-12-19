@@ -2,7 +2,7 @@
 
 string[] lines = await File.ReadAllLinesAsync(@"..\..\..\Input.txt", System.Text.Encoding.UTF8);
 
-PositionTracker tracker = new();
+IPositionTracker tracker = new PositionTrackerPart1();
 InputProcessor processor = new(tracker);
 
 processor.ProcessLines(lines);

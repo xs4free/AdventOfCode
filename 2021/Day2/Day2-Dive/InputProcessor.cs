@@ -2,9 +2,9 @@
 {
     public class InputProcessor
     {
-        private readonly PositionTracker tracker;
+        private readonly IPositionTracker tracker;
 
-        public InputProcessor(PositionTracker tracker)
+        public InputProcessor(IPositionTracker tracker)
         {
             this.tracker = tracker;
         }

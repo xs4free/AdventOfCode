@@ -8,7 +8,7 @@ namespace Day2_Dive.UnitTests
         [Fact]
         public void ProcessLines_example()
         {
-            PositionTracker tracker = new();            
+            PositionTrackerPart1 tracker = new();            
             var sut = new InputProcessor(tracker);
             string[] commandLines = new[] { "forward 5", "down 5", "forward 8", "up 3", "down 8", "forward 2" };
             
