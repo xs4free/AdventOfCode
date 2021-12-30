@@ -55,5 +55,32 @@ namespace Day3_Binary_Diagnostic.UnitTests
 
             results.PowerConsumption.Should().Be(198);
         }
+
+        [Fact]
+        public void Analyze_should_return_correct_OxygenGeneratorRating()
+        {
+            var analyzer = new DiagnosticReportAnalyzer();
+            var results = analyzer.Analyze(diagnosticReport);
+
+            results.OxygenGeneratorRating.Should().Be(23);
+        }
+
+        [Fact]
+        public void Analyze_should_return_correct_CO2ScrubberRating()
+        {
+            var analyzer = new DiagnosticReportAnalyzer();
+            var results = analyzer.Analyze(diagnosticReport);
+
+            results.CO2ScrubberRating.Should().Be(10);
+        }
+
+        [Fact]
+        public void Analyze_should_return_correct_LifeSupportRating()
+        {
+            var analyzer = new DiagnosticReportAnalyzer();
+            var results = analyzer.Analyze(diagnosticReport);
+
+            results.LifeSupportRating.Should().Be(230);
+        }
     }
 }
