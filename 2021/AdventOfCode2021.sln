@@ -22,9 +22,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day2", "Day2", "{07539668-5
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day2-Dive", "Day2\Day2-Dive\Day2-Dive.csproj", "{61FC854B-7A05-43B4-986C-FC387C71C5BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day2-Dive", "Day2\Day2-Dive\Day2-Dive.csproj", "{61FC854B-7A05-43B4-986C-FC387C71C5BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day2-Dive.UnitTests", "Day2\Day2-Dive.UnitTests\Day2-Dive.UnitTests.csproj", "{5EE239C8-A648-4C46-B61E-0457C739092E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day2-Dive.UnitTests", "Day2\Day2-Dive.UnitTests\Day2-Dive.UnitTests.csproj", "{5EE239C8-A648-4C46-B61E-0457C739092E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day3", "Day3", "{B61FC6F6-0319-4094-AC32-FD2E586C600E}"
+	ProjectSection(SolutionItems) = preProject
+		input.txt = input.txt
+		Day3\readme.md = Day3\readme.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day3-Binary-Diagnostic", "Day3\Day3-Binary-Diagnostic\Day3-Binary-Diagnostic.csproj", "{E50CCB06-DFD1-44E1-B840-EBFFE7DB9009}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day3-Binary-Diagnostic.UnitTests", "Day3\Day3-Binary-Diagnostic.UnitTests\Day3-Binary-Diagnostic.UnitTests.csproj", "{94BA15E1-52AA-4A84-8D81-FCB1A0A135CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +58,14 @@ Global
 		{5EE239C8-A648-4C46-B61E-0457C739092E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EE239C8-A648-4C46-B61E-0457C739092E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EE239C8-A648-4C46-B61E-0457C739092E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E50CCB06-DFD1-44E1-B840-EBFFE7DB9009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E50CCB06-DFD1-44E1-B840-EBFFE7DB9009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E50CCB06-DFD1-44E1-B840-EBFFE7DB9009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E50CCB06-DFD1-44E1-B840-EBFFE7DB9009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94BA15E1-52AA-4A84-8D81-FCB1A0A135CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94BA15E1-52AA-4A84-8D81-FCB1A0A135CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94BA15E1-52AA-4A84-8D81-FCB1A0A135CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94BA15E1-52AA-4A84-8D81-FCB1A0A135CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +75,8 @@ Global
 		{CD9B1202-23A4-42AD-B6FF-A6F93E7C10DE} = {0DCF3877-FCA4-4A48-AE2C-9ACC51F1DBE4}
 		{61FC854B-7A05-43B4-986C-FC387C71C5BD} = {07539668-5FA4-4B40-AE44-66A875ACC60E}
 		{5EE239C8-A648-4C46-B61E-0457C739092E} = {07539668-5FA4-4B40-AE44-66A875ACC60E}
+		{E50CCB06-DFD1-44E1-B840-EBFFE7DB9009} = {B61FC6F6-0319-4094-AC32-FD2E586C600E}
+		{94BA15E1-52AA-4A84-8D81-FCB1A0A135CB} = {B61FC6F6-0319-4094-AC32-FD2E586C600E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CC7954CC-C735-4E4B-99B0-F6F6DCA8C4B9}
