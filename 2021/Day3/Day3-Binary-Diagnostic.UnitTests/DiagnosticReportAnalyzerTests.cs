@@ -21,7 +21,16 @@ namespace Day3_Binary_Diagnostic.UnitTests
         };
 
         [Fact]
-        public void GammaRate_should_be_correct()
+        public void Analyze_should_return_invalid_result_when_empty_report()
+        {
+            var analyzer = new DiagnosticReportAnalyzer();
+            var results = analyzer.Analyze(new string[] { });
+
+            results.Valid.Should().Be(false);
+        }
+
+        [Fact]
+        public void Analyze_should_return_correct_GammaRate()
         {
             var analyzer = new DiagnosticReportAnalyzer();
             var results = analyzer.Analyze(diagnosticReport); 
@@ -30,7 +39,7 @@ namespace Day3_Binary_Diagnostic.UnitTests
         }
 
         [Fact]
-        public void EpsilonRate_should_be_correct()
+        public void Analyze_should_return_correct_EpsilonRate()
         {
             var analyzer = new DiagnosticReportAnalyzer();
             var results = analyzer.Analyze(diagnosticReport);
@@ -39,7 +48,7 @@ namespace Day3_Binary_Diagnostic.UnitTests
         }
 
         [Fact]
-        public void PowerConsumption_should_be_correct()
+        public void Analyze_should_return_correct_PowerConsumption()
         {
             var analyzer = new DiagnosticReportAnalyzer();
             var results = analyzer.Analyze(diagnosticReport);
