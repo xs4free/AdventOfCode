@@ -28,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day2-Dive.UnitTests", "Day2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day3", "Day3", "{B61FC6F6-0319-4094-AC32-FD2E586C600E}"
 	ProjectSection(SolutionItems) = preProject
-		input.txt = input.txt
+		Day3\input.txt = Day3\input.txt
 		Day3\readme.md = Day3\readme.md
 	EndProjectSection
 EndProject
