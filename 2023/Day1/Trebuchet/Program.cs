@@ -1,9 +1,13 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using Trebuchet;
+﻿using Trebuchet;
 
 const string inputFile = @"../../../../Input-Day1.txt";
-var lines = await File.ReadAllLinesAsync(inputFile);
 
-var calibrationNumber = CalibrationParser.Parse(lines);
-Console.WriteLine(calibrationNumber);
+await OutputParseCalibrationFile(inputFile, 1, CalibrationParserMode.Digits);
+await OutputParseCalibrationFile(inputFile, 2, CalibrationParserMode.DigitsAndWords);
+
+async Task OutputParseCalibrationFile(string filename, int part, CalibrationParserMode mode)
+{
+    var lines = await File.ReadAllLinesAsync(filename);
+    var calibrationNumber = CalibrationParser.Parse(lines, mode);
+    Console.WriteLine($"Part {part} - {calibrationNumber}");
+}
