@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trebuchet", "Day1\Trebuchet\Trebuchet.csproj", "{B218533D-4C1A-4006-BE93-FD64E313BECB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day1", "Day1", "{97AE0739-BEDF-4EC8-9147-711C74A1A86D}"
+	ProjectSection(SolutionItems) = preProject
+		Day1\Input-Day1.txt = Day1\Input-Day1.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trebuchet.Tests", "Day1\Trebuchet.Tests\Trebuchet.Tests.csproj", "{47098869-FB90-4420-90C0-1C6F437C3238}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution-files", "Solution-files", "{2F8192B9-8CEB-4ED5-B5A4-258689A792BD}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B218533D-4C1A-4006-BE93-FD64E313BECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B218533D-4C1A-4006-BE93-FD64E313BECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B218533D-4C1A-4006-BE93-FD64E313BECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B218533D-4C1A-4006-BE93-FD64E313BECB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47098869-FB90-4420-90C0-1C6F437C3238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47098869-FB90-4420-90C0-1C6F437C3238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47098869-FB90-4420-90C0-1C6F437C3238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47098869-FB90-4420-90C0-1C6F437C3238}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B218533D-4C1A-4006-BE93-FD64E313BECB} = {97AE0739-BEDF-4EC8-9147-711C74A1A86D}
+		{47098869-FB90-4420-90C0-1C6F437C3238} = {97AE0739-BEDF-4EC8-9147-711C74A1A86D}
+	EndGlobalSection
+EndGlobal

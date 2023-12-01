@@ -1,0 +1,12 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=21be5ec1_002D4a2d_002D4317_002D88bd_002D6979774fd2ae/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Parse_Example_Input" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::47098869-FB90-4420-90C0-1C6F437C3238::net8.0::Trebuchet.Tests.CalibrationParserTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8aed220c_002D7a28_002D47de_002Da341_002D4f4064b16cee/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Parse_Example_Input #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::47098869-FB90-4420-90C0-1C6F437C3238::net8.0::Trebuchet.Tests.CalibrationParserTests.Parse_Example_Input&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::47098869-FB90-4420-90C0-1C6F437C3238::net8.0::Trebuchet.Tests.CalibrationParserTests.Parse_One_number_in_line&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
