@@ -11,6 +11,29 @@ public static class CubeConundrumSolver
         
         return possibleGames.Select(game => game.Id).Sum();
     }
+
+    public static int GetPowerOfFewestPossibleCubes(string[] games)
+    {
+        var parsedGames = GameParser.Parse(games);
+        
+        var fewestPossibleBags = parsedGames.Select(GetFewestPossibleCubes);
+        
+        return fewestPossibleBags.Select(bag => bag.Power).Sum();
+    }
+
+    private static BagContents GetFewestPossibleCubes(Game game)
+    {
+        int red = 0, green = 0, blue = 0;
+
+        foreach (var draw in game.Draws)
+        {
+            red = Math.Max(red, draw.Red);
+            green = Math.Max(green, draw.Green);
+            blue = Math.Max(blue, draw.Blue);
+        }
+
+        return new BagContents(blue, red, green);
+    }
     
     private static IEnumerable<Game> GetPossibleGames(BagContents bagContents, IEnumerable<Game> games)
     {

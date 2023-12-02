@@ -12,4 +12,7 @@ async Task OutputConundrumSolver(string filename)
     var sum = CubeConundrumSolver.GetSumOfPossibleGameIds(bagContentsInput, lines);
     
     Console.WriteLine($"Sum: {sum}");
+    
+    var power = CubeConundrumSolver.GetPowerOfFewestPossibleCubes(lines);
+    Console.WriteLine($"Power: {power}");
 }
