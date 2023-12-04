@@ -22,11 +22,6 @@ public static class ScoreCalculator
     {
         foreach (var (id, score) in scoredCards)
         {
-            if (score.CountWinningNumbers <= 0)
-            {
-                continue;
-            }
-
             for (int cardIdToCopy = id + 1; cardIdToCopy <= id + score.CountWinningNumbers; cardIdToCopy++)
             {
                 if (scoredCards.TryGetValue(cardIdToCopy, out var card))
