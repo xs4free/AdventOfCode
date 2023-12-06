@@ -1,35 +1,10 @@
 ﻿namespace AlmanacReader;
 
-public static class AlmanacParser
+internal class AlmanacParser
 {
-    public static long FindLowestLocation(IEnumerable<string> lines)
+    public static Seeds? ReadMaps(IEnumerable<string> lines)
     {
-        var seeds = ReadMaps(lines);
-
-        var seedLocations = seeds.Numbers.Select(seed => Translate(seeds.Target, seed)).ToList();
-        
-        return seedLocations.Min();
-    }
-
-    private static long Translate(Map map, long source)
-    {
-        var translatedValue = source;
-        
-        foreach (var translation in map.Translations)
-        {
-            if (translation.SourceStart <= source && translation.SourceEnd >= source)
-            {
-                translatedValue = translation.DestinationStart + (source - translation.SourceStart);
-                break;
-            }
-        }
-
-        return map.Target == null ? translatedValue : Translate(map.Target, translatedValue);
-    }
-    
-    private static Seeds ReadMaps(IEnumerable<string> lines)
-    {
-        Seeds seeds = null;
+        Seeds? seeds = null;
         Map? currentMap = null;
         
         foreach (var line in lines)
@@ -46,11 +21,11 @@ public static class AlmanacParser
                 (string source, string destination) = GetSourceDestination(line);
                 var newMap = new Map(source, destination, null, new());
 
-                if (seeds.Target == null)
+                if (seeds != null && seeds.Target == null)
                 {
                     seeds.Target = newMap;
                 }
-                else
+                else if (currentMap != null)
                 {
                     currentMap.Target = newMap;
                 }
@@ -63,9 +38,12 @@ public static class AlmanacParser
             {
                 continue;
             }
-            
-            var translations = line.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray();
-            currentMap.Translations.Add(CreateTranslation(translations));
+
+            if (currentMap != null)
+            {
+                var translations = line.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray();
+                currentMap.Translations.Add(CreateTranslation(translations));
+            }
         }
 
         return seeds;
@@ -78,8 +56,6 @@ public static class AlmanacParser
     }
 
     private static Translation CreateTranslation(IReadOnlyList<long> translations) =>
-        new(translations[1], 
-            translations[1] + translations[2] - 1,
-            translations[0], 
-            translations[0] + translations[2] - 1);
+        new(new NumberRange(translations[1], translations[1] + translations[2] - 1),
+            new NumberRange(translations[0],translations[0] + translations[2] - 1));    
 }

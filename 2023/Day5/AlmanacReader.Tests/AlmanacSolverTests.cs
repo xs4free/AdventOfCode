@@ -2,7 +2,7 @@ using AlmanacReader;
 
 namespace Almanac.Tests;
 
-public class AlmanacParserTests
+public class AlmanacSolverTests
 {
     private const string Input = """
                          seeds: 79 14 55 13
@@ -41,10 +41,19 @@ public class AlmanacParserTests
                          """;
     
     [Fact]
-    public void FindLowestLocation_Example()
+    public void FindLowestLocationSingleSeeds_Example()
     {
-        var lowestLocation = AlmanacParser.FindLowestLocation(Input.Split(Environment.NewLine));
+        var lowestLocation = AlmanacSolver.FindLowestLocationSingleSeeds(Input.Split(Environment.NewLine));
 
         Assert.Equal(35, lowestLocation);
     }
+    
+    [Fact]
+    public void FindLowestLocationRangedSeeds_Example()
+    {
+        var lowestLocation = AlmanacSolver.FindLowestLocationRangedSeeds(Input.Split(Environment.NewLine));
+
+        Assert.Equal(46, lowestLocation);
+    }
+    
 }
