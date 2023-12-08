@@ -22,36 +22,46 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day2", "Day2", "{6D473DCE-6
 		Day2\Input-Day2.txt = Day2\Input-Day2.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CubeConundrum", "Day2\CubeConundrum\CubeConundrum.csproj", "{F42484A9-5BC4-4963-91CC-B8034347CA3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CubeConundrum", "Day2\CubeConundrum\CubeConundrum.csproj", "{F42484A9-5BC4-4963-91CC-B8034347CA3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CubeConundrum.Tests", "Day2\CubeConundrum.Tests\CubeConundrum.Tests.csproj", "{B3A033B7-B0B9-4138-B18B-ABEA622E5E10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CubeConundrum.Tests", "Day2\CubeConundrum.Tests\CubeConundrum.Tests.csproj", "{B3A033B7-B0B9-4138-B18B-ABEA622E5E10}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day3", "Day3", "{BE4AFD6A-E0AC-4282-9DD5-08C3FC016ED3}"
 	ProjectSection(SolutionItems) = preProject
 		Day3\Input-Day3.txt = Day3\Input-Day3.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GearRatios", "Day3\GearRatios\GearRatios.csproj", "{67041B01-5212-40EE-855D-9C8DE8900799}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GearRatios", "Day3\GearRatios\GearRatios.csproj", "{67041B01-5212-40EE-855D-9C8DE8900799}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GearRatios.Tests", "Day3\GearRatios.Tests\GearRatios.Tests.csproj", "{96A89E09-ED75-40D9-AF99-634D1693914E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GearRatios.Tests", "Day3\GearRatios.Tests\GearRatios.Tests.csproj", "{96A89E09-ED75-40D9-AF99-634D1693914E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day4", "Day4", "{0E99BAAB-F112-4743-B1E6-E5EF3C149FCD}"
 	ProjectSection(SolutionItems) = preProject
 		Day4\Input-Day4.txt = Day4\Input-Day4.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scratchcards", "Day4\Scratchcards\Scratchcards.csproj", "{A4BB39A4-2B96-492A-AF53-73EBD9B920C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scratchcards", "Day4\Scratchcards\Scratchcards.csproj", "{A4BB39A4-2B96-492A-AF53-73EBD9B920C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scratchcards.Tests", "Day4\Scratchcards.Tests\Scratchcards.Tests.csproj", "{587A198A-F111-450E-8640-C0D742269378}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scratchcards.Tests", "Day4\Scratchcards.Tests\Scratchcards.Tests.csproj", "{587A198A-F111-450E-8640-C0D742269378}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day5", "Day5", "{C35AB7AF-D97C-46A8-9128-CA30085ED18D}"
 	ProjectSection(SolutionItems) = preProject
 		Day5\Input-Day5.txt = Day5\Input-Day5.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlmanacReader", "Day5\AlmanacReader\AlmanacReader.csproj", "{684DE5F5-E0E2-4261-85C8-3C07C58DFCB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmanacReader", "Day5\AlmanacReader\AlmanacReader.csproj", "{684DE5F5-E0E2-4261-85C8-3C07C58DFCB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlmanacReader.Tests", "Day5\AlmanacReader.Tests\AlmanacReader.Tests.csproj", "{A1D962D1-6144-4B4D-A4D9-A1C914838555}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmanacReader.Tests", "Day5\AlmanacReader.Tests\AlmanacReader.Tests.csproj", "{A1D962D1-6144-4B4D-A4D9-A1C914838555}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day6", "Day6", "{4E72F67F-4A94-42C6-AA42-403943818251}"
+	ProjectSection(SolutionItems) = preProject
+		Day6\Day6.txt = Day6\Day6.txt
+		Day6\Input-Day6.txt = Day6\Input-Day6.txt
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boatrace", "Day6\Boatrace\Boatrace.csproj", "{ACB8591B-19BF-42F2-A240-04E7DADB4E63}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boatrace.Tests", "Day6\Boatrace.Tests\Boatrace.Tests.csproj", "{AE8EC3D4-5BAD-4EBA-AA9D-9A68BC7D6FC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +109,14 @@ Global
 		{A1D962D1-6144-4B4D-A4D9-A1C914838555}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1D962D1-6144-4B4D-A4D9-A1C914838555}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1D962D1-6144-4B4D-A4D9-A1C914838555}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACB8591B-19BF-42F2-A240-04E7DADB4E63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACB8591B-19BF-42F2-A240-04E7DADB4E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACB8591B-19BF-42F2-A240-04E7DADB4E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACB8591B-19BF-42F2-A240-04E7DADB4E63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE8EC3D4-5BAD-4EBA-AA9D-9A68BC7D6FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE8EC3D4-5BAD-4EBA-AA9D-9A68BC7D6FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE8EC3D4-5BAD-4EBA-AA9D-9A68BC7D6FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE8EC3D4-5BAD-4EBA-AA9D-9A68BC7D6FC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +132,8 @@ Global
 		{587A198A-F111-450E-8640-C0D742269378} = {0E99BAAB-F112-4743-B1E6-E5EF3C149FCD}
 		{684DE5F5-E0E2-4261-85C8-3C07C58DFCB4} = {C35AB7AF-D97C-46A8-9128-CA30085ED18D}
 		{A1D962D1-6144-4B4D-A4D9-A1C914838555} = {C35AB7AF-D97C-46A8-9128-CA30085ED18D}
+		{ACB8591B-19BF-42F2-A240-04E7DADB4E63} = {4E72F67F-4A94-42C6-AA42-403943818251}
+		{AE8EC3D4-5BAD-4EBA-AA9D-9A68BC7D6FC8} = {4E72F67F-4A94-42C6-AA42-403943818251}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9E56EA3-B013-4C3A-816B-DCD0FE19D6B3}
