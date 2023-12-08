@@ -55,7 +55,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmanacReader.Tests", "Day5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day6", "Day6", "{4E72F67F-4A94-42C6-AA42-403943818251}"
 	ProjectSection(SolutionItems) = preProject
-		Day6\Day6.txt = Day6\Day6.txt
 		Day6\Input-Day6.txt = Day6\Input-Day6.txt
 	EndProjectSection
 EndProject

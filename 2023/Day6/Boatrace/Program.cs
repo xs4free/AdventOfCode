@@ -1,2 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Boatrace;
+
+const string inputFile = @"../../../../Input-Day6.txt";
+
+var lines = await File.ReadAllLinesAsync(inputFile);
+
+var margin = RaceCalculator.CalculateMargin(lines);
+Console.WriteLine($"Margin: {margin}");

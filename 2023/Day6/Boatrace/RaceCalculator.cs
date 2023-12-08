@@ -8,33 +8,29 @@
         /// </summary>
         public static int CalculateMargin(IEnumerable<string> input)
         {
-            return 0;
+            var races = RaceReader.GetRaces(input).ToList();
+            var winningRaceCombinations = races.Select(race => GetWinningRaceOptions(race).Count()).ToList(); 
+            
+            int power = winningRaceCombinations.First();
+            foreach (var combination in winningRaceCombinations.Skip(1))
+            {
+                power *= combination;
+            }
+            
+            return power;
         }
 
-        private static IEnumerable<Race> GetRaces(IEnumerable<string> input)
+        private static IEnumerable<RaceOption> GetWinningRaceOptions(Race race)
         {
-            int[]? times = null, distances = null;
-
-            foreach(var line in input)
+            for (int timePressed = 0; timePressed <= race.Time; timePressed++)
             {
-                var split = line.Split(new[] { ":", " "}, StringSplitOptions.RemoveEmptyEntries|StringSplitOptions.TrimEntries);
+                int speed = timePressed;
+                int timeRemaining = race.Time - timePressed;
+                int distanceTravelled = timeRemaining * speed;
 
-                if (split[0] == "Time")
+                if (distanceTravelled > race.Distance)
                 {
-                    times = split.Skip(1).Select(int.Parse).ToArray();
-                }
-
-                if (split[1] == "Distance")
-                {
-                    distances = split.Skip(1).Select(int.Parse).ToArray();
-                }
-            }
-
-            if (times != null && distances != null)
-            {
-                for (int index = 0; index < times.Length; index++)
-                {
-                    yield return new Race(times[index], distances[index]);
+                    yield return new RaceOption(timePressed, distanceTravelled);
                 }
             }
         }
