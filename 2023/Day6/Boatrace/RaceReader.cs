@@ -8,7 +8,7 @@ internal static class RaceReader
     /// </summary>
     public static IEnumerable<Race> GetRaces(IEnumerable<string> input)
     {
-        int[]? times = null, distances = null;
+        long[]? times = null, distances = null;
 
         foreach(var line in input)
         {
@@ -16,12 +16,12 @@ internal static class RaceReader
 
             if (split[0] == "Time")
             {
-                times = split.Skip(1).Select(int.Parse).ToArray();
+                times = split.Skip(1).Select(long.Parse).ToArray();
             }
 
             if (split[0] == "Distance")
             {
-                distances = split.Skip(1).Select(int.Parse).ToArray();
+                distances = split.Skip(1).Select(long.Parse).ToArray();
             }
         }
 
@@ -34,6 +34,32 @@ internal static class RaceReader
         {
             yield return new Race(times[index], distances[index]);
         }
+    }
+
+    public static Race? GetCombinedRaces(IEnumerable<string> input)
+    {
+        long? time = null, distance = null;
+        foreach(var line in input)
+        {
+            var split = line.Split( ":", StringSplitOptions.RemoveEmptyEntries|StringSplitOptions.TrimEntries);
+
+            if (split[0] == "Time")
+            {
+                time = long.Parse(split[1].Replace(" ", string.Empty));
+            }
+
+            if (split[0] == "Distance")
+            {
+                distance = long.Parse(split[1].Replace(" ", string.Empty));
+            }
+        }
+
+        if (time != null && distance != null)
+        {
+            return new Race(time.Value, distance.Value);
+        }
+        
+        return null;
     }
     
 }

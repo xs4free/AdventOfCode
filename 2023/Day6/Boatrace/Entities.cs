@@ -1,6 +1,6 @@
 ﻿namespace Boatrace
 {
-    internal record Race(int Time, int Distance);
+    internal record Race(long Time, long Distance);
 
-    internal record RaceOption(int TimePressed, int DistanceReached);
+    internal record RaceOption(long TimePressed);
 }
