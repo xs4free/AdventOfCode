@@ -2,17 +2,17 @@
 
 public static class Oasis
 {
-    public static int PredictAll(IEnumerable<string> lines)
+    public static int PredictAllValues(IEnumerable<string> lines, PredictDirection direction)
     {
         return lines
             .Select(line => line.Split(" ", StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
             .Select(int.Parse)
             .ToList())
-            .Select(Predict)
+            .Select(line => Predict(line, direction))
             .Sum();
     }
-
-    private static int Predict(IList<int> line)
+    
+    private static int Predict(IList<int> line, PredictDirection direction)
     {
         if (line.All(value => value == 0))
         {
@@ -24,7 +24,17 @@ public static class Oasis
         {
             nextLine.Add(line[index] - line[index - 1]);
         }
-        
-        return Predict(nextLine.ToArray()) + line[^1];
+
+        if (direction == PredictDirection.Next)
+        {
+            return Predict(nextLine.ToArray(), direction) + line[^1];
+        }
+        return line[0] - Predict(nextLine.ToArray(), direction);
     }
 }
+
+public enum PredictDirection
+{
+    Next,
+    Previous
+};
