@@ -2,29 +2,24 @@
 
 public static class GalaxyMap
 {
-    public static int SumShortestPaths(IEnumerable<string> input)
+    public static long SumShortestPaths(IEnumerable<string> input, int expansionRate)
     {
         var map = ReadMap(input);
-        map = ExpandMap(map);
+        var expandedMap = ExpandMap(map, expansionRate);
         
-        var galaxies = GetGalaxies(map);
+        var galaxies = GetGalaxies(expandedMap);
 
         var galaxyPairs = GetPairs(galaxies);
-
-        CalculateShortestPath(galaxyPairs);
         
         return galaxyPairs.Sum(pair => pair.ShortestPath);
     }
 
-    private static void CalculateShortestPath(IEnumerable<GalaxyPair> galaxyPairs)
+    private static long CalculateShortestPath(Galaxy galaxy1, Galaxy galaxy2)
     {
-        foreach (var pair in galaxyPairs)
-        {
-            var x = Math.Max(pair.Galaxy1.X, pair.Galaxy2.X) - Math.Min(pair.Galaxy1.X, pair.Galaxy2.X);
-            var y = Math.Max(pair.Galaxy1.Y, pair.Galaxy2.Y) - Math.Min(pair.Galaxy1.Y, pair.Galaxy2.Y);
+        var x = Math.Max(galaxy1.X, galaxy2.X) - Math.Min(galaxy1.X, galaxy2.X);
+        var y = Math.Max(galaxy1.Y, galaxy2.Y) - Math.Min(galaxy1.Y, galaxy2.Y);
 
-            pair.ShortestPath = x + y;
-        }
+        return x + y;
     }
 
     private static List<GalaxyPair> GetPairs(List<Galaxy> galaxies)
@@ -42,7 +37,7 @@ public static class GalaxyMap
                 var pairKey = galaxy1.Number < galaxy2.Number ? $"{galaxy1.Number}-{galaxy2.Number}" : $"{galaxy2.Number}-{galaxy1.Number}";
                 if (galaxy1 != galaxy2 && pairsCreated.Add(pairKey))
                 {
-                    result.Add(new GalaxyPair(galaxy1, galaxy2, 0));
+                    result.Add(new GalaxyPair(galaxy1, galaxy2, CalculateShortestPath(galaxy1, galaxy2)));
                 }
             }
         }
@@ -50,19 +45,21 @@ public static class GalaxyMap
         return result;
     }
 
-    private static List<Galaxy> GetGalaxies(char[][] map)
+    private static List<Galaxy> GetGalaxies(Map map)
     {
         var galaxyNumber = 1;
         var result = new List<Galaxy>();
         
-        for (var y = 0; y < map.Length; y++)
+        for (var y = 0; y < map.Position.Length; y++)
         {
-            var line = map[y];
+            var line = map.Position[y];
             for (var x = 0; x < line.Length; x++)
             {
                 if (line[x] == '#')
                 {
-                    result.Add(new Galaxy(galaxyNumber++, x, y));
+                    var expandedX = map.ColumnExpansions[..x].Sum();
+                    var expandedY = map.RowExpansions[..y].Sum();
+                    result.Add(new Galaxy(galaxyNumber++, expandedX, expandedY));
                 }
             }
         }
@@ -70,43 +67,19 @@ public static class GalaxyMap
         return result;
     }
 
-    private static char[][] ExpandMap(char[][] map)
+    private static Map ExpandMap(char[][] map, long expansionRate) => 
+        new Map(map, GetRowExpansions(map, expansionRate), GetColumnExpansions(map, expansionRate));
+
+    private static List<long> GetRowExpansions(char[][] map, long expansionRate) => 
+        map.Select(line => line.All(position => position != '#') ? expansionRate : 1).ToList();
+
+    private static List<long> GetColumnExpansions(char[][] map, long expansionRate)
     {
-        var columnToExpand = GetColumnsToExpand(map).ToHashSet();
-
-        var expandedMap = new List<List<char>>();
-        
-        foreach (var line in map)
-        {
-            var expandedLine = new List<char>();
-            for (var x = 0; x < line.Length; x++)
-            {
-                expandedLine.Add(line[x]);
-                if (columnToExpand.Contains(x))
-                {
-                    expandedLine.Add(line[x]);
-                }
-            }
-            expandedMap.Add(expandedLine);
-            if (expandedLine.All(position => position != '#'))
-            {
-                expandedMap.Add(expandedLine);
-            }
-        }
-
-        return expandedMap.Select(line => line.ToArray()).ToArray();
-    }
-
-    private static IEnumerable<int> GetColumnsToExpand(char[][] map)
-    {
-        var result = new List<int>();
+        List<long> result = [];
         
         for (var x = 0; x < map[0].Length; x++)
         {
-            if (map.All(t => t[x] != '#'))
-            {
-                result.Add(x);
-            }
+            result.Add(map.All(lines => lines[x] != '#') ? expansionRate : 1);
         }
 
         return result;

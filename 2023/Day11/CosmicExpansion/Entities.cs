@@ -1,10 +1,7 @@
 ﻿namespace CosmicExpansion;
 
-internal record Galaxy(int Number, int X, int Y);
+internal record Galaxy(int Number, long X, long Y);
 
-internal class GalaxyPair(Galaxy galaxy1, Galaxy galaxy2, int shortestPath)
-{
-    public Galaxy Galaxy1 { get; init; } = galaxy1;
-    public Galaxy Galaxy2 { get; init; } = galaxy2;
-    public int ShortestPath { get; set; } = shortestPath;
-}
+internal record GalaxyPair(Galaxy Galaxy1, Galaxy Galaxy2, long ShortestPath);
+
+internal record Map(char[][] Position, List<long> RowExpansions, List<long> ColumnExpansions);
