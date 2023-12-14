@@ -1,27 +1,33 @@
-﻿using System.Diagnostics;
-
-namespace HotSprings;
+﻿namespace HotSprings;
 
 public static class SpringReport
 {
-    public static int SumOfArrangements(IEnumerable<string> input)
+    public static long SumOfArrangements(IEnumerable<string> input, int unfoldFactor)
     {
-        var arrangements = input.Select(GetArrangementsCount);
+        var arrangements = input.Select(line => GetArrangementsCount(line, unfoldFactor));
 
         return arrangements.Sum();
     }
 
-    private static int GetArrangementsCount(string line)
+    private static long GetArrangementsCount(string line, int unfoldFactor)
     {
         var split = line.Split(new[] { ' ', ',' }, StringSplitOptions.TrimEntries| StringSplitOptions.RemoveEmptyEntries);
         
-        var input = split[0];
+        var foldedInput = split[0];
+        var foldedExpectedFailedPipes = split[1..].Select(int.Parse).ToList();
 
-        var expectedFailedPipes = split[1..].Select(int.Parse).ToList();
+        var count1 = GetArrangements(foldedInput, foldedExpectedFailedPipes).Count;
+        var count2 = GetArrangements(foldedInput + '?', foldedExpectedFailedPipes).Count;
+        var foldedInput3 = foldedInput.EndsWith('#') ? foldedInput : '?' + foldedInput;  
+        var count3 = GetArrangements(foldedInput3, foldedExpectedFailedPipes).Count;
+        
+        var result = count1;
+        for (var i = 1; i < unfoldFactor; i++)
+        {
+            result *= count3 >= count2 ? count3 : count2;
+        }
 
-        var arrangements = GetArrangements(input, expectedFailedPipes);
-
-        return arrangements.Count;
+        return result; //unfoldFactor == 5 ==> count1 * count3 * count3 * count3 * count3;
     }
 
     private static List<char[]> GetArrangements(string input, List<int> expectedFailedPipes)
@@ -30,21 +36,29 @@ public static class SpringReport
         List<char[]> possibleArrangements = [input.ToCharArray()];
         do
         {
-            var count = possibleArrangements.Count;
-            for (var index = 0; index < count; index++)
+            for (var index = 0; index < possibleArrangements.Count; index++)
             {
                 var arrangement = possibleArrangements[index];
                 var indexOfQuestionmark = IndexOfQuestionmark(arrangement);
                 
                 if (indexOfQuestionmark > -1)
                 {
-                    // replace questionmark with '.' in array in list
+                    // remove current arrangement and add arrangements with one less questionmark
+                    possibleArrangements.RemoveAt(index);
+                    
                     arrangement[indexOfQuestionmark] = '.';
+                    if (IsStillPossible(arrangement, expectedFailedPipes))
+                    {
+                        possibleArrangements.Add((char[])arrangement.Clone());
+                    }
 
-                    // replace questionmark with '#' and add new array to list
-                    arrangement = (char[])arrangement.Clone();
                     arrangement[indexOfQuestionmark] = '#';
-                    possibleArrangements.Add(arrangement);
+                    if (IsStillPossible(arrangement, expectedFailedPipes))
+                    {
+                        possibleArrangements.Add((char[])arrangement.Clone());
+                    }
+
+                    break;
                 }
             }
         } while (possibleArrangements.Any(arrangement => arrangement.Contains('?')));
@@ -53,6 +67,21 @@ public static class SpringReport
             GetBrokenPipeGroups(arrangement).SequenceEqual(expectedFailedPipes)).ToList();
         
         return validArrangements;
+    }
+
+    private static bool IsStillPossible(char[] arrangement, List<int> expectedFailedPipes)
+    {
+        var failedPipesSoFar = GetBrokenPipeGroups(arrangement);
+
+        for (var index = 0; index < failedPipesSoFar.Count && index < expectedFailedPipes.Count; index++)
+        {
+            if (failedPipesSoFar[index] > expectedFailedPipes[index])
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static int IndexOfQuestionmark(char[] arrangement)
@@ -72,11 +101,14 @@ public static class SpringReport
     {
         List<int> result = [];
         
-        Debug.Assert(input.All(c => c != '?'));
-
         var pipesInGroup = 0;
         foreach (var chr in input)
         {
+            if (chr == '?')
+            {
+                break;
+            }
+            
             if (chr == '#')
             {
                 pipesInGroup++;
