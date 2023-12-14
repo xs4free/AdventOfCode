@@ -16,115 +16,77 @@ public static class SpringReport
         var foldedInput = split[0];
         var foldedExpectedFailedPipes = split[1..].Select(int.Parse).ToList();
 
-        var count1 = GetArrangements(foldedInput, foldedExpectedFailedPipes).Count;
-        var count2 = GetArrangements(foldedInput + '?', foldedExpectedFailedPipes).Count;
-        var foldedInput3 = foldedInput.EndsWith('#') ? foldedInput : '?' + foldedInput;  
-        var count3 = GetArrangements(foldedInput3, foldedExpectedFailedPipes).Count;
+        var unfoldedInput = string.Empty;
+        var unfoldedExpectedFailedPipes = new List<int>();
         
-        var result = count1;
-        for (var i = 1; i < unfoldFactor; i++)
+        for (var index = 0; index < unfoldFactor; index++)
         {
-            result *= count3 >= count2 ? count3 : count2;
+            unfoldedInput += foldedInput;
+            if (unfoldFactor > 0 && index < unfoldFactor - 1)
+            {
+                unfoldedInput += '?';
+            }
+            unfoldedExpectedFailedPipes.AddRange(foldedExpectedFailedPipes);
         }
 
-        return result; //unfoldFactor == 5 ==> count1 * count3 * count3 * count3 * count3;
+        return Count(unfoldedInput, unfoldedExpectedFailedPipes);
     }
 
-    private static List<char[]> GetArrangements(string input, List<int> expectedFailedPipes)
+    private static readonly Dictionary<string, long> Cache = new();
+    private static long Count(string input, List<int> expectedFailedPipes)
     {
-        // replace all ? with '.' or '#'
-        List<char[]> possibleArrangements = [input.ToCharArray()];
-        do
+        if (string.IsNullOrEmpty(input))
         {
-            for (var index = 0; index < possibleArrangements.Count; index++)
-            {
-                var arrangement = possibleArrangements[index];
-                var indexOfQuestionmark = IndexOfQuestionmark(arrangement);
-                
-                if (indexOfQuestionmark > -1)
-                {
-                    // remove current arrangement and add arrangements with one less questionmark
-                    possibleArrangements.RemoveAt(index);
-                    
-                    arrangement[indexOfQuestionmark] = '.';
-                    if (IsStillPossible(arrangement, expectedFailedPipes))
-                    {
-                        possibleArrangements.Add((char[])arrangement.Clone());
-                    }
-
-                    arrangement[indexOfQuestionmark] = '#';
-                    if (IsStillPossible(arrangement, expectedFailedPipes))
-                    {
-                        possibleArrangements.Add((char[])arrangement.Clone());
-                    }
-
-                    break;
-                }
-            }
-        } while (possibleArrangements.Any(arrangement => arrangement.Contains('?')));
-
-        var validArrangements = possibleArrangements.Where(arrangement =>
-            GetBrokenPipeGroups(arrangement).SequenceEqual(expectedFailedPipes)).ToList();
-        
-        return validArrangements;
-    }
-
-    private static bool IsStillPossible(char[] arrangement, List<int> expectedFailedPipes)
-    {
-        var failedPipesSoFar = GetBrokenPipeGroups(arrangement);
-
-        for (var index = 0; index < failedPipesSoFar.Count && index < expectedFailedPipes.Count; index++)
-        {
-            if (failedPipesSoFar[index] > expectedFailedPipes[index])
-            {
-                return false;
-            }
+            // if the input is empty but we are stil expecting failed pipes, this is not a valid arrangement
+            return expectedFailedPipes.Count == 0 ? 1 : 0; 
         }
 
-        return true;
-    }
-
-    private static int IndexOfQuestionmark(char[] arrangement)
-    {
-        for (var index = 0; index < arrangement.Length; index++)
+        if (expectedFailedPipes.Count == 0)
         {
-            if (arrangement[index] == '?')
-            {
-                return index;
-            }
+            // if there is still a broken pipe in the input, but non is expected this is not a valid arrangement
+            return input.Contains('#') ? 0 : 1; 
         }
 
-        return -1;
-    }
-
-    public static List<int> GetBrokenPipeGroups(char[] input)
-    {
-        List<int> result = [];
-        
-        var pipesInGroup = 0;
-        foreach (var chr in input)
+        var neededSeperators = expectedFailedPipes.Count > 0 ? expectedFailedPipes.Count - 1 : expectedFailedPipes.Count;
+        if (expectedFailedPipes.Sum() + neededSeperators > input.Length)
         {
-            if (chr == '?')
+            // if the expected number of failed pipes is larger than the remaining input this is not a valid arrangement
+            return 0;
+        }
+
+        var key = $"{input} - {string.Join(',', expectedFailedPipes)}";
+        if (Cache.TryGetValue(key, out var cachedValue))
+        {
+            return cachedValue;
+        }
+
+        long result = 0;
+        
+        // first character is not a pipe (or can be treated like a non-pipe), so no extra options except all next characters
+        if (input[0] is '.' or '?')
+        {
+            result += Count(input[1..], expectedFailedPipes);
+        }
+
+        if (input[0] is '#' or '?')
+        {
+            var expectedCountFailedPipes = expectedFailedPipes[0];
+
+            if (
+                // does the expected number of failed pipes even fit in the remaining input?
+                expectedCountFailedPipes <= input.Length
+                // is it possible to place required pipes in the next set of positions
+                && !input[..expectedCountFailedPipes].Contains('.')
+                // first character after expected failed pipes shouldn't be another failed pipe
+                && (expectedCountFailedPipes == input.Length || input[expectedCountFailedPipes] != '#')) 
             {
-                break;
-            }
-            
-            if (chr == '#')
-            {
-                pipesInGroup++;
-            }
-            else if (pipesInGroup > 0)
-            {
-                result.Add(pipesInGroup);
-                pipesInGroup = 0;
+                // skip past the expected first number of pipes in the input and try to fit the rest of the expected failed pipes
+                var index = input.Length > expectedCountFailedPipes+1 ? expectedCountFailedPipes+1 : expectedCountFailedPipes;  
+                result += Count(input[index..], expectedFailedPipes[1..]);
             }
         }
         
-        if (pipesInGroup > 0)
-        {
-            result.Add(pipesInGroup);
-        }        
-
+        Cache.Add(key, result);
         return result;
     }
 }
