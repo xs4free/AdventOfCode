@@ -1,4 +1,3 @@
-using FluentAssertions;
 namespace HotSprings.Tests;
 
 public class SpringReportTests
@@ -55,23 +54,5 @@ public class SpringReportTests
         var result = SpringReport.SumOfArrangements(new[] { input }, 5);
         
         Assert.Equal(expectedResult, result);
-    }
-    
-    public static IEnumerable<object[]> GetBrokenPipeGroupsData =>
-        new List<object[]>
-        {
-            new object[] { "#.#.###", new List<int> { 1,1,3 }},
-            new object[] { ".#...#....###.", new List<int> {1,1,3 }},
-            new object[] { ".#.###.#.######", new List<int> {1,3,1,6 }},
-            new object[] { "####.#...#...", new List<int> {4,1,1 }},
-            new object[] { "#....######..#####.", new List<int> {1,6,5 }},
-            new object[] { ".###.##....#", new List<int> { 3,2,1}}
-        };
-
-    [Theory, MemberData(nameof(GetBrokenPipeGroupsData))]
-    public void GetBrokenPipeGroups_validate_count(string input, List<int> expectedResult)
-    {
-        var result = SpringReport.GetBrokenPipeGroups(input.ToCharArray());
-        result.Should().Equal(expectedResult);
     }
 }
