@@ -114,6 +114,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotSprings", "Day12\HotSprings\HotSprings.csproj", "{A444BF2F-D6F5-4EB7-B3E1-A65163FF387C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day13", "Day13", "{D3DF434D-67A6-49FD-BC22-5C57C5529997}"
+	ProjectSection(SolutionItems) = preProject
+		Day13\Input-Day13.txt = Day13\Input-Day13.txt
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointOfIncidence", "Day13\PointOfIncidence\PointOfIncidence.csproj", "{78E91D24-6676-4065-8C4B-EA78E1F31C95}"
 EndProject
