@@ -2,14 +2,14 @@
 
 public static class Hash
 {
-    public static long Compute(string line)
+    public static int Compute(string line)
     {
         var split = line.Contains(',') ? line.Split(',', StringSplitOptions.RemoveEmptyEntries) : new [] { line };
         
         return split.Select(ComputeInternal).Sum();
     }
 
-    private static long ComputeInternal(string value)
+    private static int ComputeInternal(string value)
     {
         var result = 0;
         
