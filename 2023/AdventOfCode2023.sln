@@ -141,6 +141,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LensLibrary.Tests", "Day15\LensLibrary.Tests\LensLibrary.Tests.csproj", "{08DE9D71-DBA3-44B8-A339-54F6E6ACBB32}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day16", "Day16", "{9AF4DCD7-E7ED-4917-94CA-E18010CABF31}"
+	ProjectSection(SolutionItems) = preProject
+		Day16\Input-Day16.txt = Day16\Input-Day16.txt
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FloorWillBeLava.Tests", "Day16\FloorWillBeLava.Tests\FloorWillBeLava.Tests.csproj", "{6661A6C4-F6AB-421C-8A17-240512B045DA}"
 EndProject

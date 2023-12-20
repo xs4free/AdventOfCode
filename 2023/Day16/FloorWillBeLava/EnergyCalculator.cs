@@ -6,69 +6,107 @@ public static class EnergyCalculator
     {
         var map = lines.Select(line => line.ToCharArray()).ToArray();
 
-        var energizedPositions = new HashSet<(int x, int y)>();
-        var energizedPositionsPlusDirection = new HashSet<(int x, int y, Direction direction)>();
-        
-        WalkEnergyPath(map, -1, 0, Direction.Right, energizedPositions, energizedPositionsPlusDirection);
-
-        return energizedPositions.Count;
+        return WalkEnergyPath(map, 0, 0, Direction.Right);
     }
 
-    private static int WalkEnergyPath(
+    public static int MaxEnergizedTiles(IEnumerable<string> lines)
+    {
+        var map = lines.Select(line => line.ToCharArray()).ToArray();
+
+        var tilesCount = new List<int>();
+
+        for (var x = 0; x < map[0].Length; x++)
+        {
+            tilesCount.Add(WalkEnergyPath(map, x, 0, Direction.Down));
+            tilesCount.Add(WalkEnergyPath(map, x, map.Length - 1, Direction.Up));
+        }
+        for (var y = 0; y < map.Length; y++)
+        {
+            tilesCount.Add(WalkEnergyPath(map, 0, y, Direction.Right));
+            tilesCount.Add(WalkEnergyPath(map, map[0].Length - 1, y, Direction.Left));
+        }
+        
+        return tilesCount.Max();
+    }
+
+    private static int WalkEnergyPath(char[][] map, int x, int y, Direction direction)
+    {
+        var loopProtection = new HashSet<(int x, int y, Direction direction)>();
+        WalkEnergyPath(map, x, y, direction, loopProtection);
+        
+        return loopProtection.DistinctBy<(int, int, Direction),(int, int)>(tuple => (tuple.Item1, tuple.Item2)).Count();
+    }
+
+    private static void WalkEnergyPath(
         char[][] map, 
         int x, int y, 
         Direction direction, 
-        ISet<(int x, int y)> energizedPositions, 
-        ISet<(int x, int y, Direction direction)> energizedPositionsPlusDirection)
+        ISet<(int x, int y, Direction direction)> loopProtection)
     {
-        var nextX = direction == Direction.Left ? x - 1 : direction == Direction.Right ? x + 1 : x;
-        var nextY = direction == Direction.Up ? y - 1 : direction == Direction.Down ? y + 1 : y;
-
-        if (nextX >= map[0].Length || nextX < 0)
+        if (x >= map[0].Length || x < 0 || 
+            y >= map.Length || y < 0)
         {
-            return 0;
+            return;
+        }
+        if (!loopProtection.Add((x, y, direction)))
+        {
+            return;
         }
 
-        if (nextY >= map.Length || nextY < 0)
+        switch (map[y][x])
         {
-            return 0;
-        }
+            case '|' when direction is  Direction.Left or Direction.Right:
+                WalkEnergyPath(map, x, y - 1, Direction.Up, loopProtection);
+                WalkEnergyPath(map, x, y + 1, Direction.Down, loopProtection);
+                break;
+            case '-' when direction is Direction.Up or Direction.Down:
+                WalkEnergyPath(map, x - 1, y, Direction.Left, loopProtection);
+                WalkEnergyPath(map, x + 1, y, Direction.Right, loopProtection);
+                break;
+            case '\\' when direction == Direction.Right:
+                WalkEnergyPath(map, x, y + 1, Direction.Down, loopProtection);
+                break;
+            case '\\' when direction == Direction.Left:
+                WalkEnergyPath(map, x, y - 1, Direction.Up, loopProtection);
+                break;
+            case '\\' when direction == Direction.Up:
+                WalkEnergyPath(map, x - 1, y, Direction.Left, loopProtection);
+                break;
+            case '\\' when direction == Direction.Down:
+                WalkEnergyPath(map, x + 1, y, Direction.Right, loopProtection);
+                break;
+            case '/' when direction == Direction.Right:
+                WalkEnergyPath(map, x, y - 1, Direction.Up, loopProtection);
+                break;
+            case '/' when direction == Direction.Left:
+                WalkEnergyPath(map, x, y + 1, Direction.Down, loopProtection);
+                break;
+            case '/' when direction == Direction.Up:
+                WalkEnergyPath(map, x + 1, y, Direction.Right, loopProtection);
+                break;
+            case '/' when direction == Direction.Down:
+                WalkEnergyPath(map, x - 1, y, Direction.Left, loopProtection);
+                break;
+            default:
+            {
+                switch (direction)
+                {
+                    case Direction.Up:
+                        WalkEnergyPath(map, x, y - 1, direction, loopProtection);
+                        break;
+                    case Direction.Down:
+                        WalkEnergyPath(map, x, y + 1, direction, loopProtection);
+                        break;
+                    case Direction.Left:
+                        WalkEnergyPath(map, x - 1, y, direction, loopProtection);
+                        break;
+                    case Direction.Right:
+                        WalkEnergyPath(map, x + 1, y, direction, loopProtection);
+                        break;
+                }
 
-        energizedPositions.Add((nextX, nextY));
-        if (!energizedPositionsPlusDirection.Add((nextX, nextY, direction)))
-        {
-            // infinite loop detected (already passed this point from the same direction)
-            return 0;
+                break;
+            }
         }
-
-        var steps = 1;
-        steps += (chr: map[nextY][nextX], direction) switch
-        {
-            { chr: '|', direction: Direction.Left or Direction.Right } =>
-                WalkEnergyPath(map, nextX, nextY, Direction.Up, energizedPositions, energizedPositionsPlusDirection)
-                + WalkEnergyPath(map, nextX, nextY, Direction.Down, energizedPositions, energizedPositionsPlusDirection),
-            { chr: '-', direction: Direction.Up or Direction.Down } =>
-                WalkEnergyPath(map, nextX, nextY, Direction.Left, energizedPositions, energizedPositionsPlusDirection)
-                + WalkEnergyPath(map, nextX, nextY, Direction.Right, energizedPositions, energizedPositionsPlusDirection),
-            { chr: '\\', direction: Direction.Right } =>
-                WalkEnergyPath(map, nextX, nextY, Direction.Down, energizedPositions, energizedPositionsPlusDirection),
-            { chr: '\\', direction: Direction.Left } =>
-                WalkEnergyPath(map, nextX, nextY, Direction.Up, energizedPositions, energizedPositionsPlusDirection),
-            { chr: '\\', direction: Direction.Up } =>
-                WalkEnergyPath(map, nextX, nextY, Direction.Left, energizedPositions, energizedPositionsPlusDirection),
-            { chr: '\\', direction: Direction.Down } =>
-                WalkEnergyPath(map, nextX, nextY, Direction.Right, energizedPositions, energizedPositionsPlusDirection),
-            { chr: '/', direction: Direction.Right } =>
-                WalkEnergyPath(map, nextX, nextY, Direction.Up, energizedPositions, energizedPositionsPlusDirection),
-            { chr: '/', direction: Direction.Left } =>
-                WalkEnergyPath(map, nextX, nextY, Direction.Down, energizedPositions, energizedPositionsPlusDirection),
-            { chr: '/', direction: Direction.Up } =>
-                WalkEnergyPath(map, nextX, nextY, Direction.Right, energizedPositions, energizedPositionsPlusDirection),
-            { chr: '/', direction: Direction.Down } =>
-                WalkEnergyPath(map, nextX, nextY, Direction.Left, energizedPositions, energizedPositionsPlusDirection),
-            _ => WalkEnergyPath(map, nextX, nextY, direction, energizedPositions, energizedPositionsPlusDirection)
-        };
-        
-        return steps;
     }
 }
