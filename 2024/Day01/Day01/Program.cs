@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using Day01;
+﻿using Day01;
 
 var lines = await File.ReadAllLinesAsync("..\\..\\..\\..\\input.txt");
 var (l1, l2) = InputParser.Parse(lines);
