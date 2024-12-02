@@ -2,5 +2,5 @@
 
 public class Report
 {
-    public IList<int> Levels { get; set; } = new List<int>();
+    public int[] Levels { get; set; } = [];
 }

@@ -7,7 +7,7 @@ public static class InputParser
         return lines.Select(line => 
             new Report
             {
-                Levels = line.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(level => Int32.Parse(level)).ToList()
+                Levels = line.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(level => Int32.Parse(level)).ToArray()
             }).ToList();
     }
 }
