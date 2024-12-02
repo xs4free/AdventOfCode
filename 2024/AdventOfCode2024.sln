@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day1", "Day1", "{F03F6867-988C-4408-A3AB-92CBEC4C862D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day01", "Day01", "{F03F6867-988C-4408-A3AB-92CBEC4C862D}"
 	ProjectSection(SolutionItems) = preProject
-		Day1\input.txt = Day1\input.txt
+		Day1\input.txt = Day01\input.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day1", "Day1\Day1\Day1.csproj", "{41611F81-3248-40C5-ACEE-2790D9E2FDFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day01", "Day01\Day01\Day01.csproj", "{41611F81-3248-40C5-ACEE-2790D9E2FDFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day1.Tests", "Day1\Day1.Tests\Day1.Tests.csproj", "{6DB35ED4-E79B-43F2-8B08-702AF1CB01CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day01.Tests", "Day01\Day01.Tests\Day01.Tests.csproj", "{6DB35ED4-E79B-43F2-8B08-702AF1CB01CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day02", "Day02", "{24609435-AFC0-435D-B2F7-00768A724B38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

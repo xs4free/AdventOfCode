@@ -1,4 +1,4 @@
-﻿namespace Day1;
+﻿namespace Day01;
 
 public static class SimilarityCalculator
 {

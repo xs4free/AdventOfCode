@@ -1,4 +1,4 @@
-﻿namespace Day1.Tests;
+﻿namespace Day01.Tests;
 
 public class SimilarityCalculatorTests
 {
