@@ -1,4 +1,6 @@
-﻿namespace Day04;
+﻿using System.Diagnostics;
+
+namespace Day04;
 
 public static class WordFinder
 {
@@ -97,5 +99,39 @@ public static class WordFinder
                 break;
             }
         }
+    }
+    
+    public static int CountX(string wordToFind, char[][] input)
+    {
+        Debug.Assert(wordToFind.Length % 2 != 0);
+        
+        var count = 0;
+        
+        for (var y = 1; y < input[0].Length - 1; y++)
+        {
+            for(var x = 1; x < input[0].Length - 1; x++)
+            {
+                count += IsMiddleOfX(input, x, y, wordToFind);
+            }
+        }
+        return count;
+    }
+
+    private static int IsMiddleOfX(char[][] input, int x, int y, string wordToFind)
+    {
+        if (input[y][x] != wordToFind[wordToFind.Length / 2])
+            return 0;
+        
+        var charactersLeftOfCenter = wordToFind.Length / 2;
+        
+        var diagonalOne = 
+            CheckDirection(input, x-charactersLeftOfCenter, y-charactersLeftOfCenter, wordToFind, Direction.DownRight) == 1 ||
+            CheckDirection(input, x+charactersLeftOfCenter, y+charactersLeftOfCenter, wordToFind, Direction.UpLeft) == 1;
+
+        var diagonalTwo = 
+            CheckDirection(input, x+charactersLeftOfCenter, y-charactersLeftOfCenter, wordToFind, Direction.DownLeft) == 1 ||
+            CheckDirection(input, x-charactersLeftOfCenter, y+charactersLeftOfCenter, wordToFind, Direction.UpRight) == 1;
+
+        return diagonalOne && diagonalTwo? 1 : 0;
     }
 }
