@@ -1,9 +1,12 @@
 ﻿
 using Day03;
 
-var input = await File.ReadAllTextAsync("..\\..\\..\\..\\input.txt");
+var input = await File.ReadAllTextAsync(@"..\..\..\..\input.txt");
 
-var instructions = MulParser.Parse(input);
-var result = instructions.Select(MulExecuter.Execute).Sum();
+var instructions = InstructionParser.Parse(input).ToList();
 
-Console.WriteLine($"Result of multiplications for input.text is: {result}");
+var resultMulInstructions = InstructionExecuter.Execute(instructions.Where(instruction => instruction is MulInstruction));
+Console.WriteLine($"Result of multiplications of only MulInstructions for input.text is: {resultMulInstructions}");
+
+var resultAllInstructions = InstructionExecuter.Execute(instructions);
+Console.WriteLine($"Result of multiplications for all instructions for input.text is: {resultAllInstructions}");
