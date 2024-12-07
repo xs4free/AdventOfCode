@@ -1,6 +1,6 @@
 ﻿namespace Day05.Tests;
 
-public class UnitTest1
+public class ValidUpdateScoreTests
 {
     private readonly string[] _input =
         [
@@ -38,9 +38,20 @@ public class UnitTest1
     public void Validate_Example_Score()
     {
         var parsedInput = InputParser.Parse(_input);
-        var validUpdates = UpdateValidator.GetValidUpdates(parsedInput);
+        var validUpdates = parsedInput.Updates.Where(update => UpdateValidator.IsValid(update, parsedInput.OrderingRules)).ToList();
         var score = ValidUpdateScore.Score(validUpdates);
         
         Assert.Equal(143, score);
+    }
+    
+    [Fact]
+    public void Fix_Invalid_Updates_Example_Score()
+    {
+        var parsedInput = InputParser.Parse(_input);
+        var invalidUpdates = parsedInput.Updates.Where(update => !UpdateValidator.IsValid(update, parsedInput.OrderingRules)).ToList();
+        var fixedUpdates = invalidUpdates.Select(invalidUpdate => UpdateValidator.Fix(invalidUpdate, parsedInput.OrderingRules)).ToList();
+        var score = ValidUpdateScore.Score(fixedUpdates);
+        
+        Assert.Equal(123, score);
     }
 }

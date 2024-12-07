@@ -2,12 +2,7 @@
 
 public static class UpdateValidator
 {
-    public static IEnumerable<IList<int>> GetValidUpdates(ParsedInput input)
-    {
-        return input.Updates.Where(update => IsUpdateValid(update, input.OrderingRules)).ToList();
-    }
-
-    private static bool IsUpdateValid(IList<int> update, Dictionary<int, List<int>> orderingRules)
+    public static bool IsValid(List<int> update, Dictionary<int, List<int>> orderingRules)
     {
         var updateIndex = new Dictionary<int, int>();
         for (var i = 0; i < update.Count; i++)
@@ -33,5 +28,44 @@ public static class UpdateValidator
         }
 
         return true;
+    }
+
+    public static List<int> Fix(List<int> invalidUpdate, Dictionary<int, List<int>> parsedInputOrderingRules)
+    {
+        var result = new List<int>(invalidUpdate);
+
+        bool swapped;
+        do
+        {
+            swapped = false;
+            
+            for (var i = 0; i < result.Count; i++)
+            {
+                var currentPageNumber = result[i];
+                if (!parsedInputOrderingRules.TryGetValue(currentPageNumber, out var rightOfCurrentPageNumber))
+                {
+                    continue;
+                }
+
+                var indexOfRightPageNumbers = rightOfCurrentPageNumber.Select(number => result.IndexOf(number)).Where(index => index != -1).ToList();
+                if (indexOfRightPageNumbers.Count == 0)
+                {
+                    continue;
+                }
+                
+                var smallestIndex = indexOfRightPageNumbers.Min();
+                if (smallestIndex >= i)
+                {
+                    continue;
+                }
+                
+                result.RemoveAt(i);
+                result.Insert(smallestIndex, currentPageNumber);
+                swapped = true;
+                break;
+            }
+        } while (swapped);
+
+        return result;
     }
 }
