@@ -5,9 +5,9 @@ public class Equation(long result, long[] inputs)
     private long[] Inputs { get; } = inputs;
     public long Result { get; } = result;
 
-    public bool IsValid()
+    public bool IsValid(List<Operator> operators)
     {
-        var operatorCombinations = GetOperatorCombinations(Inputs.Length - 1);
+        var operatorCombinations = GetOperatorCombinations(operators, Inputs.Length - 1);
         
         return operatorCombinations.Any(combination => Calculate(combination) == Result);
     }
@@ -26,6 +26,9 @@ public class Equation(long result, long[] inputs)
                     break;
                 case Operator.Multiply: 
                     calcResult *= Inputs[i + 1];
+                    break;
+                case Operator.Concatenation:
+                    calcResult = long.Parse($"{calcResult}{Inputs[i + 1]}");
                     break;
                 default: 
                     throw new NotSupportedException($"Operator {op} is not supported.");
@@ -53,17 +56,17 @@ public class Equation(long result, long[] inputs)
     /// 110
     /// 111
     /// </summary>
-    private static List<List<Operator>> GetOperatorCombinations(int operatorCount)
+    private static List<List<Operator>> GetOperatorCombinations(List<Operator> validOperators, int operatorCount)
     {
         if (operatorCount <= 1)
         {
-            return [[Operator.Add], [Operator.Multiply]];
+            return validOperators.Select(op => new List<Operator> { op }).ToList();
         }
 
-        var previousCombinations = GetOperatorCombinations(--operatorCount);
+        var previousCombinations = GetOperatorCombinations(validOperators, --operatorCount);
         var newCombinations = new List<List<Operator>>();
         
-        foreach (var op in Enum.GetValues(typeof(Operator)).Cast<Operator>())
+        foreach (var op in validOperators)
         {
             foreach (var combination in previousCombinations)
             {

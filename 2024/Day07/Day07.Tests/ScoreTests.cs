@@ -16,11 +16,21 @@ public class ScoreTests
     ];
     
     [Fact]
-    public void Calculate_Example()
+    public void Calculate_Example_Day1()
     {
         var equations = InputParser.ParseInput(_input);
-        var score = Score.Calculate(equations);
+        var score = Score.Calculate(equations, [Operator.Add, Operator.Multiply]);
         
         Assert.Equal(3749, score);
     }
+    
+    [Fact]
+    public void Calculate_Example_Day2()
+    {
+        var equations = InputParser.ParseInput(_input);
+        var score = Score.Calculate(equations, [Operator.Add, Operator.Multiply, Operator.Concatenation]);
+        
+        Assert.Equal(11387, score);
+    }
+    
 }

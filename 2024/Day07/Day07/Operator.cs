@@ -3,5 +3,6 @@
 public enum Operator
 {
     Add,
-    Multiply
+    Multiply,
+    Concatenation
 }
