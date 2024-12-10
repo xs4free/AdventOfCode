@@ -2,20 +2,26 @@
 
 public static class AntinodeLocator
 {
-    public static IEnumerable<(int X, int Y)> Locate(char[][] map)
+    public static IEnumerable<(int X, int Y)> Locate(char[][] map, bool repeatFrequency)
     {
-        var antennaLocations = FindAntennas(map);
+        var antennaLocations = FindAntennas(map).ToList();
         var matchingAntennaFrequencyLocations = antennaLocations.GroupBy(antenna => antenna.frequency);
 
-        var antinodes = CreateAntinodes(matchingAntennaFrequencyLocations);
+        var mapHeight = map.Length;
+        var mapWidth = map[0].Length;
         
-        var mapSizeY = map.Length;
-        var mapSizeX = map[0].Length;
+        var antinodes = CreateAntinodes(matchingAntennaFrequencyLocations, (mapWidth, mapHeight), repeatFrequency);
+        var result = antinodes.Select(node => (node.X, node.Y));
         
-        return antinodes.Select(node => (node.X, node.Y)).Where(node => node.X >= 0 && node.X <= mapSizeX - 1 && node.Y >= 0 && node.Y <= mapSizeY - 1).Distinct();
+        if (repeatFrequency)
+        {
+            result = result.Concat(antennaLocations.Select(ant => (ant.x, ant.y)));
+        }
+
+        return result.Distinct();
     }
 
-    private static IEnumerable<(int X, int Y, char frequency)> CreateAntinodes(IEnumerable<IGrouping<char,(int x, int y, char frequency)>> matchingAntennaFrequencyLocations)
+    private static IEnumerable<(int X, int Y, char frequency)> CreateAntinodes(IEnumerable<IGrouping<char,(int x, int y, char frequency)>> matchingAntennaFrequencyLocations, (int Width, int Height) mapSize, bool repeatFrequency)
     {
         var antinodes = new List<(int X, int Y, char frequency)>();
         
@@ -28,7 +34,7 @@ public static class AntinodeLocator
                 var otherAntennas = antennas.Where(ant => ant != antenna).ToList();
                 foreach (var otherAntenna in otherAntennas)
                 {
-                    antinodes.AddRange(GetAntinodePositions(antenna, otherAntenna));
+                    antinodes.AddRange(GetAntinodePositions(antenna, otherAntenna, mapSize, repeatFrequency));
                 }
             }
         }
@@ -36,10 +42,43 @@ public static class AntinodeLocator
         return antinodes;
     }
 
-    private static IEnumerable<(int X, int Y, char frequency)> GetAntinodePositions((int x, int y, char frequency) antenna, (int x, int y, char frequency) otherAntenna)
+    private static IEnumerable<(int X, int Y, char frequency)> GetAntinodePositions(
+        (int x, int y, char frequency) antenna, 
+        (int x, int y, char frequency) otherAntenna, 
+        (int Width, int Height) mapSize, 
+        bool repeatFrequency)
     {
-        yield return (otherAntenna.x + (otherAntenna.x - antenna.x), otherAntenna.y + (otherAntenna.y - antenna.y), antenna.frequency);
-        yield return (antenna.x + (antenna.x - otherAntenna.x), antenna.y + (antenna.y - otherAntenna.y), antenna.frequency);
+        foreach (var valueTuple in GetAntinodePositionsAntenna(antenna, otherAntenna, mapSize, repeatFrequency)) yield return valueTuple;
+        foreach (var valueTuple in GetAntinodePositionsAntenna(otherAntenna, antenna, mapSize, repeatFrequency)) yield return valueTuple;
+    }
+
+    private static IEnumerable<(int X, int Y, char frequency)> GetAntinodePositionsAntenna(
+        (int x, int y, char frequency) antenna,
+        (int x, int y, char frequency) otherAntenna, 
+        (int Width, int Height) mapSize,
+        bool repeatFrequency)
+    {
+        var diffX = otherAntenna.x - antenna.x;
+        var diffY = otherAntenna.y - antenna.y;
+        
+        var newX = otherAntenna.x + diffX;
+        var newY = otherAntenna.y + diffY;
+
+        var count = 0;
+        
+        while (newX >= 0 && newX <= mapSize.Width - 1 && newY >= 0 && newY <= mapSize.Height - 1)
+        {
+            count++;
+            
+            yield return (newX, newY, antenna.frequency);
+            newX += diffX;
+            newY += diffY;
+
+            if (count == 1 && !repeatFrequency)
+            {
+                break;
+            }
+        }
     }
 
     private static IEnumerable<(int x, int y, char frequency)> FindAntennas(char[][] map)
