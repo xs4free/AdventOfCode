@@ -7,7 +7,7 @@ public class FilesystemTests
     public void Checksum_Part1_Example(string input, int expected)
     {
         var map = InputParser.Parse(input);
-        var defraggedMap = Defragger.Defrag(map);
+        var defraggedMap = Defragger.DefragSectors(map);
         var result = Filesystem.Checksum(defraggedMap);
         
         Assert.Equal(expected, result);
@@ -23,5 +23,16 @@ public class FilesystemTests
         var result = Filesystem.Checksum(defraggedMap);
         
         Assert.Equal(1928, result);
+    }
+    
+    [Theory]
+    [InlineData("2333133121414131402", 2858)]
+    public void Checksum_Part2_Example(string input, int expected)
+    {
+        var map = InputParser.Parse(input);
+        var defraggedMap = Defragger.DefragFiles(map);
+        var result = Filesystem.Checksum(defraggedMap);
+        
+        Assert.Equal(expected, result);
     }
 }

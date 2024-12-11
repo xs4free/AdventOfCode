@@ -3,7 +3,11 @@
 var line = File.ReadAllText(@"..\..\..\..\input.txt");
 var map = InputParser.Parse(line);
 
-var defraggedMap = Defragger.Defrag(map);
+var defraggedSectorsMap = Defragger.DefragSectors(map);
+var checksumSectors = Filesystem.Checksum(defraggedSectorsMap);
+Console.WriteLine($"Checksum for defragged sectors input.txt is: {checksumSectors}");
 
-var checksum = Filesystem.Checksum(defraggedMap);
-Console.WriteLine($"Checksum for defragged input.txt is: {checksum}");
+
+var defraggedFilesMap = Defragger.DefragFiles(map);
+var checksumFiles = Filesystem.Checksum(defraggedFilesMap);
+Console.WriteLine($"Checksum for defragged files input.txt is: {checksumFiles}");

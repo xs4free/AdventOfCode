@@ -16,7 +16,7 @@ public class DefraggerTests
             Sectors = SectorFactory.CreateSectorsFromString(input).ToList()
         };
         
-        var result = Defragger.Defrag(map);
+        var result = Defragger.DefragSectors(map);
         
         SectorAssert.AssertSectors(result.Sectors, expected);
     }
