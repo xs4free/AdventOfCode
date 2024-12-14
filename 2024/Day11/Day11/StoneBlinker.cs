@@ -26,7 +26,7 @@ namespace Day11
             return result;
         }
 
-        private static Dictionary<(long,int), long> _blinkCache = new();
+        private static readonly Dictionary<(long,int), long> BlinkCache = new();
 
         private static long BlinkRecursive(long input, int blinkCount)
         {
@@ -36,7 +36,7 @@ namespace Day11
             }
 
             var cacheKey = (input, blinkCount);
-            if (_blinkCache.TryGetValue(cacheKey, out var cachedResult))
+            if (BlinkCache.TryGetValue(cacheKey, out var cachedResult))
             {
                 return cachedResult;
             }
@@ -44,7 +44,7 @@ namespace Day11
             if (input == 0)
             {
                 var result0 = BlinkRecursive(1, --blinkCount);
-                _blinkCache.Add(cacheKey, result0);
+                BlinkCache.Add(cacheKey, result0);
                 return result0;
             }
 
@@ -58,19 +58,18 @@ namespace Day11
                 resultSplit += BlinkRecursive(n1, blinkCount - 1);
                 resultSplit += BlinkRecursive(n2, blinkCount - 1);
 
-                _blinkCache.Add(cacheKey, resultSplit);
+                BlinkCache.Add(cacheKey, resultSplit);
                 return resultSplit;
             }
 
             var result = BlinkRecursive(input * 2024, --blinkCount);
-            _blinkCache.Add(cacheKey, result);
+            BlinkCache.Add(cacheKey, result);
             return result;
         }
 
         private static void BlinkOnce(List<long> input)
         {
-            var originalCount = input.Count;
-            for (var i = 0; i < originalCount; i++)
+            for (var i = 0; i < input.Count; i++)
             {
                 if (input[i] == 0)
                 {
@@ -85,7 +84,7 @@ namespace Day11
                     var n2 = long.Parse(number[(number.Length / 2)..]);
 
                     input[i] = n1;
-                    input.Add(n2);
+                    input.Insert(++i,n2);
 
                     continue;
                 }
