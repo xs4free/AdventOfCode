@@ -2,7 +2,7 @@
 
 public static class MapAnalyzer
 {
-    public static int CountTrailEnds(int[][] map)
+    public static int CountTrailEnds(int[][] map, bool distinctRoutes)
     {
         var trailsEnds = new List<(int x, int y)>();
         
@@ -13,7 +13,12 @@ public static class MapAnalyzer
                 // head of trail
                 if (map[y][x] == 0)
                 {
-                    trailsEnds.AddRange(FindTrailEnds(map, x, y, -1).Distinct());
+                    var trailEnds = FindTrailEnds(map, x, y, -1);
+                    if (distinctRoutes)
+                    {
+                        trailEnds = trailEnds.Distinct().ToList();
+                    }
+                    trailsEnds.AddRange(trailEnds);
                 }
             }
         }
