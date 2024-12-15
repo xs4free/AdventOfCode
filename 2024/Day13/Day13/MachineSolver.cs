@@ -2,37 +2,56 @@ namespace Day13;
 
 public static class MachineSolver
 {
-    public static int? CostOfCheapestSolution(MachineBehaviour machineBehaviour)
+    public static long? CostOfCheapestSolution(MachineBehaviour machineBehaviour)
     {
-        var validButtonCombinations = GenerateValidCombinations(machineBehaviour).ToList();
-        if (validButtonCombinations.Count == 0)
+        var buttonA = machineBehaviour.Buttons[0];
+        var buttonB = machineBehaviour.Buttons[1];
+        
+        var clickA = CalculateClickA(machineBehaviour.PrizeLocation, buttonA.Offset, buttonB.Offset);
+        var clickB = CalculateClickB(machineBehaviour.PrizeLocation, buttonA.Offset, buttonB.Offset, clickA);
+
+        if (clickA % 1 != 0 || clickB % 1 != 0)
         {
             return null;
         }
         
-        var cheapestCost = validButtonCombinations
-            .Min(combination => combination.button1 * machineBehaviour.Buttons[0].TokenCost + combination.button2 * machineBehaviour.Buttons[1].TokenCost);
-        
-        return cheapestCost;
+        return (long)(clickA * buttonA.TokenCost + clickB * buttonB.TokenCost);
     }
-
-    private static IEnumerable<(int button1, int button2)> GenerateValidCombinations(MachineBehaviour machineBehaviour)
-    {
-        var button1 = machineBehaviour.Buttons[0];
-        var button2 = machineBehaviour.Buttons[1];
-        
-        for (var click1 = 0; click1 <= 100; click1++)
-        {
-            for (var click2 = 0; click2 <= 100; click2++)
-            {
-                var x = (button1.Offset.Dx * click1) + (button2.Offset.Dx * click2);
-                var y = (button1.Offset.Dy * click1) + (button2.Offset.Dy * click2);
-
-                if (machineBehaviour.PrizeLocation.X == x && machineBehaviour.PrizeLocation.Y == y)
-                {
-                    yield return (click1, click2);
-                }
-            }
-        }
-    }
+    
+    /*  
+     * "Button A: X+94, Y+34",
+     * "Button B: X+22, Y+67",
+     * "Prize: X=8400, Y=5400",
+     *
+     *  94a + 22b = 8400                                        ==>  A.dx * clickA + B.dx * clickB = p.X
+     *  34a + 67b = 5400                                        ==>  A.dy * clickA + B.dy * clickB = p.Y
+     *
+     *  (94a + 22b = 8400) * 67 => 6298a + 1474b = 562.800      ==> (A.dx * clickA) *  B.dy + (B.dx * clickB) *  B.dy = p.X *  B.dy
+     *  (34a + 67b = 5400) * -22 => 748a - 1474b = -118.800     ==> (A.dy * clickA) * -B.dx + (B.dy * clickB) * -B.dx = p.Y * -B.dx
+     *
+     *  6298a + 1474b = 562.800                                 ==>  (A.dx * clickA * B.dy) + (B.dx * clickB) *  B.dy = p.X *  B.dy
+     * -748a - 1474b = -118.800                                 ==> -(A.dy * clickA * B.dx) + (B.dy * clickB) * -B.dx = p.Y * -B.dx
+     * ========================+                                    ============================================================================+
+     *  5550a = 444.000                                         ==> (A.dx * B.dy) - (A.dy * B.dx) * clickA             = p.X * B.dy + p.Y * -B.dx
+     *                                                          ==> clickA                                             = (p.X * B.dy + p.Y * -B.dx) / (A.dx * B.dy) - (A.dy * B.dx)
+     *                                                                                                                   8400 * 67 + 5400 * -22 / (94 * 67) - (34 * 22)
+     *                                                                                                                   444.000                / 6298 - 748
+     *                                                                                                                   80
+     * 
+     *  a = 444.000 / 5550
+     *  a = 80
+     *
+     *  94a + 22b = 8400 && a = 80 => 94 * 80 + 22b = 8400      ==> A.dx * clickA + B.dx * clickB = p.X
+     *  94 * 80 + 22b = 8400                                    
+     *  22b = 8400 - 94 * 80                                    ==> B.dx * clickB = p.X - A.dx * clickA 
+     *  b = 8400 / 94 * 80 / 22                                 ==> clickB = (p.X - A.dx * clickA) / B.dx
+     *  b = 8400 - 7520 / 22                                               
+     *  b = 880 / 22
+     *  b = 40
+     */
+    private static double CalculateClickA(Location p, ButtonOffset a, ButtonOffset b) =>
+        (p.X * b.Dy + p.Y * -b.Dx) / (double)(a.Dx * b.Dy - a.Dy * b.Dx);
+    private static double CalculateClickB(Location p, ButtonOffset a, ButtonOffset b, double clickA) =>
+        (p.X - a.Dx * clickA) / b.Dx;
+    
 }
