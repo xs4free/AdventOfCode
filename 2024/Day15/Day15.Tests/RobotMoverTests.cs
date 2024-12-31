@@ -31,7 +31,7 @@ public class RobotMoverTests
             "########",
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         
@@ -67,7 +67,7 @@ public class RobotMoverTests
             "########",
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         
@@ -103,7 +103,7 @@ public class RobotMoverTests
             "########",
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         
@@ -139,7 +139,7 @@ public class RobotMoverTests
             "########",
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         
@@ -175,7 +175,7 @@ public class RobotMoverTests
             "########",
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         
@@ -211,7 +211,7 @@ public class RobotMoverTests
             "########",
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         
@@ -248,7 +248,7 @@ public class RobotMoverTests
             "########",
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         
@@ -284,7 +284,7 @@ public class RobotMoverTests
             "########",
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         
@@ -320,7 +320,7 @@ public class RobotMoverTests
             "########",
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         
@@ -356,7 +356,7 @@ public class RobotMoverTests
             "########",
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         
@@ -392,7 +392,7 @@ public class RobotMoverTests
             "########"
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         
@@ -441,7 +441,405 @@ public class RobotMoverTests
             "##########",
         ];
         
-        var (map, moves) = InputParser.Parse(input);
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+
+    [Fact]
+    public void Move_Part2_Example_1_Small_Left()
+    {
+        string[] input =
+        [
+            "##############",
+            "##....[][]@.##",
+            "##############",
+            "",
+            "<"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##...[][]@..##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+
+    [Fact]
+    public void Move_Part2_Example_1_Small_Right()
+    {
+        string[] input =
+        [
+            "##############",
+            "##...@[][]..##",
+            "##############",
+            "",
+            ">"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##....@[][].##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+
+    [Fact]
+    public void Move_Part2_Example_1_Smallest_Right()
+    {
+        string[] input =
+        [
+            "##############",
+            "##@[].......##",
+            "##############",
+            "",
+            ">"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##.@[]......##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+    
+    [Fact]
+    public void Move_Part2_Example_1_Small_2()
+    {
+        string[] input =
+        [
+            "##############",
+            "##...[].[]@.##",
+            "##############",
+            "",
+            "<"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##...[][]@..##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+
+    [Fact]
+    public void Move_Part2_Example_1_Small_3()
+    {
+        string[] input =
+        [
+            "##############",
+            "##[].[]@....##",
+            "##############",
+            "",
+            "<"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##[][]@.....##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+
+    [Fact]
+    public void Move_Part2_Example_1_Small_4()
+    {
+        string[] input =
+        [
+            "##############",
+            "##[][]@.....##",
+            "##############",
+            "",
+            "<"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##[][]@.....##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+
+    [Fact]
+    public void Move_Part2_Example_1_Small_5()
+    {
+        string[] input =
+        [
+            "##############",
+            "##.[][]@....##",
+            "##############",
+            "",
+            "<"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##[][]@.....##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+    
+    [Fact]
+    public void Move_Part2_Example_1()
+    {
+        string[] input =
+        [
+            "##############",
+            "##......##..##",
+            "##..........##",
+            "##....[][]@.##",
+            "##....[]....##",
+            "##..........##",
+            "##############",
+            "",
+            "<"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##......##..##",
+            "##..........##",
+            "##...[][]@..##",
+            "##....[]....##",
+            "##..........##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+    
+    [Fact]
+    public void Move_Part2_Example_2()
+    {
+        string[] input =
+        [
+            "##############",
+            "##......##..##",
+            "##..........##",
+            "##...[][]...##",
+            "##....[]....##",
+            "##.....@....##",
+            "##############",
+            "",
+            "^"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##......##..##",
+            "##...[][]...##",
+            "##....[]....##",
+            "##.....@....##",
+            "##..........##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+
+    [Fact]
+    public void Move_Part2_Example_2_2()
+    {
+        string[] input =
+        [
+            "##############",
+            "##......##..##",
+            "##...[][]...##",
+            "##....[]....##",
+            "##.....@....##",
+            "##..........##",
+            "##############",
+            "",
+            "^"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##......##..##",
+            "##...[][]...##",
+            "##....[]....##",
+            "##.....@....##",
+            "##..........##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+
+    [Fact]
+    public void Move_Part2_Example_2_3()
+    {
+        string[] input =
+        [
+            "##############",
+            "##......##..##",
+            "##...[][]...##",
+            "##....[]....##",
+            "##....@.....##",
+            "##..........##",
+            "##############",
+            "",
+            "^"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##......##..##",
+            "##...[][]...##",
+            "##....[]....##",
+            "##....@.....##",
+            "##..........##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+    
+    [Fact]
+    public void Move_Part2_Example_3_Small()
+    {
+        string[] input =
+        [
+            "##############",
+            "##.....@....##",
+            "##...[][]...##",
+            "##..........##",
+            "##############",
+            "",
+            "v"
+        ];
+        
+        string[] expectedResult =
+        [
+            "##############",
+            "##..........##",
+            "##...[]@....##",
+            "##.....[]...##",
+            "##############",
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart1(input);
+        var newMap = RobotMover.Move(map, moves);
+        var printedNewMap = PrintMap(newMap);
+        
+        Assert.Equal(expectedResult, printedNewMap);
+    }
+    
+    
+    [Fact]
+    public void Move_Part2_Example_Large()
+    {
+        string[] input =
+        [
+            "##########",
+            "#..O..O.O#",
+            "#......O.#",
+            "#.OO..O.O#",
+            "#..O@..O.#",
+            "#O#..O...#",
+            "#O..O..O.#",
+            "#.OO.O.OO#",
+            "#....O...#",
+            "##########",
+            "",
+            "<vv>^<v^>v>^vv^v>v<>v^v<v<^vv<<<^><<><>>v<vvv<>^v^>^<<<><<v<<<v^vv^v>^",
+            "vvv<<^>^v^^><<>>><>^<<><^vv^^<>vvv<>><^^v>^>vv<>v<<<<v<^v>^<^^>>>^<v<v",
+            "><>vv>v^v^<>><>>>><^^>vv>v<^^^>>v^v^<^^>v^^>v^<^v>v<>>v^v^<v>v^^<^^vv<",
+            "<<v<^>>^^^^>>>v^<>vvv^><v<<<>^^^vv^<vvv>^>v<^^^^v<>^>vvvv><>>v^<<^^^^^",
+            "^><^><>>><>^^<<^^v>>><^<v>^<vv>>v>>>^v><>^v><<<<v>>v<v<v>vvv>^<><<>^><",
+            "^>><>^v<><^vvv<^^<><v<<<<<><^v<<<><<<^^<v<^^^><^>>^<v^><<<^>>^v<v^v<v^",
+            ">^>>^v>vv>^<<^v<>><<><<v<<v><>v<^vv<<<>^^v^>^^>>><<^v>>v^v><^^>>^<>vv^",
+            "<><^^>^^^<><vvvvv^v<v<<>^v<v>v<<^><<><<><<<^^<<<^<<>><<><^^^>^^<>^>v<>",
+            "^^>vv<^v^v<vv>^<><v<^v>^^^>>>^^vvv^>vvv<>>>^<^>>>>>^<<^v>^vvv<>^<><<v>",
+            "v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^"
+        ];
+        
+        string[] expectedResult =
+        [
+            "####################",
+            "##[].......[].[][]##",
+            "##[]...........[].##",
+            "##[]........[][][]##",
+            "##[]......[]....[]##",
+            "##..##......[]....##",
+            "##..[]............##",
+            "##..@......[].[][]##",
+            "##......[][]..[]..##",
+            "####################"
+        ];
+        
+        var (map, moves) = InputParser.ParseForPart2(input);
         var newMap = RobotMover.Move(map, moves);
         var printedNewMap = PrintMap(newMap);
         

@@ -12,7 +12,7 @@ public class GpsScorerTests
             "######",
         ];
         
-        var (map, _) = InputParser.Parse(input);
+        var (map, _) = InputParser.ParseForPart1(input);
         var result = GpsScorer.Score(map);
         
         Assert.Equal(104, result);
@@ -33,7 +33,7 @@ public class GpsScorerTests
             "########"
         ];
         
-        var (map, _) = InputParser.Parse(input);
+        var (map, _) = InputParser.ParseForPart1(input);
         var result = GpsScorer.Score(map);
         
         Assert.Equal(2028, result);
@@ -56,9 +56,33 @@ public class GpsScorerTests
             "##########",
         ];
         
-        var (map, _) = InputParser.Parse(input);
+        var (map, _) = InputParser.ParseForPart1(input);
         var result = GpsScorer.Score(map);
         
         Assert.Equal(10092, result);
     }
+    
+    [Fact]
+    public void Score_Part2_Example_Large()
+    {
+        string[] input =
+        [
+            "####################",
+            "##[].......[].[][]##",
+            "##[]...........[].##",
+            "##[]........[][][]##",
+            "##[]......[]....[]##",
+            "##..##......[]....##",
+            "##..[]............##",
+            "##..@......[].[][]##",
+            "##......[][]..[]..##",
+            "####################",
+        ];
+        
+        var (map, _) = InputParser.ParseForPart1(input);
+        var result = GpsScorer.Score(map);
+        
+        Assert.Equal(9021, result);
+    }
+    
 }
